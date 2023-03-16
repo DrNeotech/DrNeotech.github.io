@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <h1>press the button</h1>
 <button onclick="myFunction()">Click me</button>
-<div id="nums"</div>
+<div id="ipAddress"></div>
+<div id="coords"></div>
+<div id="placeName"></div>
 <script>
-    let number;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://ipgeolocation.abstractapi.com/v1/?api_key=7738c4652cf142198a4f4f7d5b54b834", false);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            jsonData = JSON.parse(xhr.responseText);
+            console.log(jsonData);
+        }
+    };
+    xhr.send();
     function myFunction(){
-        number = number + 1;
-        document.getElementById("nums").innerHTML = number;
+        document.getElementById("ipAddress").innerHTML = jsonData.ip_address;
+        document.getElementById("coords").innerHTML = jsonData.latitude + ", " + jsonData.longitude;
+        document.getElementById("placeName").innerHTML = jsonData.city + ", " + jsonData.country;
     }
+    
 </script>
