@@ -1,2 +1,2 @@
 # DrNeotech.github.io
-i made this to mess with my friends don't mind this
+i am learning unity and putting my stuff here for friends to try out
