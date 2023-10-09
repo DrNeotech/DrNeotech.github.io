@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>dropdown</title>
+</head>
+<style>
+	
+#menu{
+	position: fixed;
+	margin-left: -7.53px;
+	margin-top: -7.53px;
+}
+
+.parent {
+	display: block;
+	position: relative;
+	float: left;
+	line-height: 30px;
+	background-color: #D90003;
+}
+
+.parent a {
+	margin: 15px;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.parent:hover>ul {
+	display: block;
+	position: absolute;
+}
+
+.child {
+	display: none;
+}
+
+.child li {
+	background-color: #6A6A6A;
+	line-height: 40px;
+	width: 100%;
+}
+
+.child li a {
+	color: #000000;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0px;
+	min-width: 10em;
+}
+
+ul ul ul{
+	left: 100%;
+	top: 0;
+	margin-left: 1px;
+}
+
+#menu > li:hover {
+	background-color: #980000;
+}
+
+.parent li:hover {
+	background-color: #F0F0F0;
+}
+
+.expand {
+	font-size: 12px;
+	float: right;
+	margin-right: 5px;
+}
+
+#div_top_hypers {
+    background-color:#eeeeee;
+    display:inline;      
+}
+#ul_top_hypers li{
+    display: inline;
+}
+	
+</style>
+
+	
+<ul id="menu">
+    <li class="parent"><a href="https://drneotech.github.io/">Home</a></li>
+    <li class="parent"><a href="#">DMC3</a>
+        <ul class="child">
+            <li class="parent"><a href="#">General <span class="expand">»</span></a>
+                <ul class="child">
+                    <li><a href="#">Placeholder</a></li>
+                </ul>
+            </li>
+            <li class="parent"><a href="#">Dante <span class="expand">»</span></a>
+                <ul class="child">
+                    <li><a href="#">General </a></li>
+                    <li class="parent"><a href="#">Styles <span class="expand">»</span></a>
+                        <ul class="child">
+                            <li><a href="#">Trickster</a></li>
+                            <li><a href="#">Swordmaster</a></li>
+                            <li><a href="#">Gunslinger</a></li>
+                            <li><a href="#">Royal Guard</a></li>
+                            <li><a href="#">Doppleganger</a></li>
+                            <li><a href="#">Quicksilver</a></li>
+                        </ul>
+                    </li>
+                    <li class="parent"><a href="#">Weapons <span class="expand">»</span></a>
+                        <ul class="child">
+                            <li class="parent"><a href="#">Melee <span class="expand">»</span></a>
+                                <ul class="child">
+                                    <li><a href="https://drneotech.github.io/DMC3-Dante-Weapons-Rebellion">Rebellion </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC3-Dante-Weapons-Cerberus">Cerberus </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC3-Dante-Weapons-Agni-and-Rudra">Agni and Rudra </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC3-Dante-Weapons-Nevan">Nevan </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC3-Dante-Weapons-Beowulf">Beowulf </a></li>
+                                </ul>
+                            </li>
+                            <li class="parent"><a href="#">Ranged <span class="expand">»</span></a>
+                                <ul class="child">
+                                    <li><a href="https://drneotech.github.io/DMC3-Dante-Weapons-Ebony-and-Ivory">Ebony and Ivory </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC3-Dante-Weapons-Coyote-A">Coyote-A </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC3-Dante-Weapons-Artemis">Artemis </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC3-Dante-Weapons-Spiral">Spiral </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC3-Dante-Weapons-Kalina Ann">Kalina Ann </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent"><a href="#">Vergil <span class="expand">»</span></a>
+                <ul class="child">
+                    <li><a href="#">General </a></li>
+                    <li class="parent"><a href="#">Weapons <span class="expand">»</span></a>
+                        <ul class="child">
+                            <li><a href="#">Yamato</a></li>
+                            <li><a href="#">Beowulf</a></li>
+                            <li><a href="#">Force Edge</a></li>
+                            <li><a href="#">Summoned Swords</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li class="parent"><a href="#">DMC4</a>
+        <ul class="child">
+            <li class="parent"><a href="#">Dante <span class="expand">»</span></a>
+                <ul class="child">
+                    <li><a href="#">General </a></li>
+
+                    <li class="parent"><a href="#">Weapons <span class="expand">»</span></a>
+                        <ul class="child">
+                            <li class="parent"><a href="#">Melee <span class="expand">»</span></a>
+                                <ul class="child">
+                                    <li><a href="#">Rebellion </a></li>
+                                    <li><a href="#">Gilgamesh </a></li>
+                                    <li><a href="#">Lucifer </a></li>
+                                </ul>
+                            </li>
+                            <li class="parent"><a href="#">Ranged <span class="expand">»</span></a>
+                                <ul class="child">
+                                    <li><a href="#">Ebony and Ivory </a></li>
+                                    <li><a href="#">Coyote-A </a></li>
+                                    <li><a href="#">Pandora </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent"><a href="#">Nero<span class="expand">»</span></a>
+                <ul class="child">
+                    <li><a href="https://drneotech.github.io/DMC4-Nero-General">General </a></li>
+                    <li class="parent"><a href="#">Weapons <span class="expand">»</span></a>
+                        <ul class="child">
+                            <li><a href="https://drneotech.github.io/DMC4-Nero-Weapons-RedQueen">Red Queen</a></li>
+                            <li><a href="https://drneotech.github.io/DMC4-Nero-Weapons-BlueRose">Blue Rose</a></li>
+                            <li><a href="https://drneotech.github.io/DMC4-Nero-Weapons-DevilBringer">Devil Bringer</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent"><a href="#">Vergil <span class="expand">»</span></a>
+                <ul class="child">
+                    <li><a href="#">General </a></li>
+                    <li class="parent"><a href="#">Weapons <span class="expand">»</span></a>
+                        <ul class="child">
+                            <li><a href="https://drneotech.github.io/DMC4-Vergil-Yamato">Yamato</a></li>
+                            <li><a href="https://drneotech.github.io/DMC4-Vergil-Beowulf">Beowulf</a></li>
+                            <li><a href="https://drneotech.github.io/DMC4-Vergil-ForceEdge">Force Edge</a></li>
+                            <li><a href="https://drneotech.github.io/DMC4-Vergil-SummonedSwords">Summoned Swords</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent"><a href="#">Trish<span class="expand">»</span></a>
+                <ul class="child">
+                </ul>
+            </li>
+            <li class="parent"><a href="#">Lady<span class="expand">»</span></a>
+                <ul class="child">
+                </ul>
+            </li>
+        </ul></li>
+
+    <li class="parent"><a href="#">DMC5</a>
+        <ul class="child">
+            <li class="parent"><a href="#">Dante <span class="expand">»</span></a>
+                <ul class="child">
+                    <li><a href="#">General </a></li>
+
+                    <li class="parent"><a href="#">Weapons <span class="expand">»</span></a>
+                        <ul class="child">
+                            <li class="parent"><a href="#">Melee <span class="expand">»</span></a>
+                                <ul class="child">
+                                    <li><a href="https://drneotech.github.io/DMC5-Dante-Weapons-DSD">Devil Sword Dante </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Dante-Weapons-Balrog">Balrog </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Dante-Weapons-KingCerberus">King Cerberus </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Dante-Weapons-Cavaliere">Cavaliere </a></li>
+                                </ul>
+                            </li>
+                            <li class="parent"><a href="#">Ranged <span class="expand">»</span></a>
+                                <ul class="child">
+                                    <li><a href="https://drneotech.github.io/DMC5-Dante-Weapons-EbonyAndIvory">Ebony and Ivory </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Dante-Weapons-CoyoteA">Coyote-A </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Dante-Weapons-DrFaust">Dr. Faust </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Dante-Weapons-KalinaAnn">Double Kalina Ann </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent"><a href="#">Nero<span class="expand">»</span></a>
+                <ul class="child">
+                    <li><a href="https://drneotech.github.io/DMC5-Nero-General">General </a></li>
+                    <li class="parent"><a href="#">Weapons <span class="expand">»</span></a>
+                        <ul class="child">
+                            <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-RedQueen">Red Queen</a></li>
+                            <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-BlueRose">Blue Rose</a></li>
+                            <li class="parent"><a href="#">Devil Breakers <span class="expand">»</span></a>
+                                <ul class="child">
+                                    <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-DB-Overture">Overture </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-DB-Gerbera">Gerbera </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-DB-PunchLine">Punch Line </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-DB-HelterSkelter">Helter Skelter </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-DB-Tomboy">Tomboy </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-DB-BusterArm">Buster Arm </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-DB-Rawhide">Rawhide </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-DB-Ragtime">Ragtime </a></li>
+                                    <li><a href="https://drneotech.github.io/DMC5-Nero-Weapons-DB-Other">Other </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent"><a href="#">V <span class="expand">»</span></a>
+                <ul class="child">
+                    <li><a href="#">General </a></li>
+                    <li class="parent"><a href="#">Summons <span class="expand">»</span></a>
+                        <ul class="child">
+                            <li><a href="#">Griffon</a></li>
+                            <li><a href="#">Shadow</a></li>
+                            <li><a href="#">Nightmare</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent"><a href="#">Vergil <span class="expand">»</span></a>
+                <ul class="child">
+                    <li><a href="#">General </a></li>
+                    <li class="parent"><a href="#">Weapons <span class="expand">»</span></a>
+                        <ul class="child">
+                            <li><a href="#">Yamato</a></li>
+                            <li><a href="#">Beowulf</a></li>
+                            <li><a href="#">Force Edge</a></li>
+                            <li><a href="#">Summoned Swords</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+	
+<body>
+</body>
+</html>
