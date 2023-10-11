@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DMC3 | Enemy Devil Trigger Stun</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<style>
+.unshitter{
+	font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+	line-height: 1.7;
+	margin-right: 30%;
+	margin-left: 7%
+}
+
+h2{
+	margin-left: 7%
+}
+
+h1{
+	margin-left: 5%
+}
+	
+
+.moveTable, .moveTable > tbody > tr > th, .moveTable > tbody > tr > td{
+	border:2px solid white;
+	border-collapse: collapse;
+}
+	
+.moveTable > tbody > tr > td{
+	background-color:#171717;
+}
+
+hr{
+	width: 70%;
+	text-align: left;
+	margin-left: 6%;
+}
+
+
+.weaponImg{
+	width: 20%;
+	float: right;
+}
+
+</style>
+	
+<body style="background-color:#333">
+<!--Navigation bar-->
+<div id="nav-placeholder">
+
+</div>
+
+<script>
+$(function(){
+  $("#nav-placeholder").load("dropdown.html");
+});
+</script>
+<!--end of Navigation bar-->
+<br>
+
+<main>
+<h1 style="color: white">Enemy DT Stun</h1>
+<h2 style="color: white">General</h2>
+<p style="color: white" class="unshitter">
+In Dante Must Die difficulty on DMC3, the enemy's Devil Trigger functions differently to the other games. There are two types of attack effects on enemies, stun and knockaway. Stun is usually inflicted by all (melee) attacks, and will cause the enemy's posture to break on difficulties lower than DMD. Knockaway on the other hand is only inflicted by some attacks, Stinger will knock an enemy back, Hammer will knock an enemy down, and Hightime will launch an enemy etc.
+<br><br>
+On Dante Must Die however, enemies gain five times their usual resistances to stun and knockaway. When knockaway resistance is broken the enemy can be launched from either the air or ground, and when stun resistance is broken the enemy can be launched as long as they have not touched the ground. Every enemy has different values for their 
+
+</p>
+<hr>
+
+	
+<h2 style="color: white" id="moveset"> Stun Value Data</h2>
+<p style="color: white" class="unshitter">The table below shows the resistance values of each enemy while in Devil Trigger.</p>
+<table style="color: white; margin-left: 7%; margin-right: 25%" class="moveTable">
+	<tr style="background-color:red">
+		<th>Values</th>
+		<th>Pride</th>
+		<th>Gluttony</th>
+		<th>Sloth</th>
+		<th>Lust</th>
+		<th>Envy</th>
+		<th>Abyss</th>
+	</tr>
+	<tr>
+		<th style="background-color:red">DT Stun</th>
+		<td>30</td>
+		<td>20</td>
+		<td>60</td>
+		<td>60</td>
+		<td>60</td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<th style="background-color:red">DT Knockaway</th>
+		<td>30</td>
+		<td>60</td>
+		<td>60</td>
+		<td>60</td>
+		<td>300</td>
+		<td>60</td>
+	</tr>
+</table>
+	
+<br>
+<p style="color: white" class="unshitter">This table shows the amount each melee attack weakens the enemy's resistance.</p>
+	
+<table style="color: white; margin-left: 7%; margin-right: 25%; line-height: 1.5;" class="moveTable">
+    <tbody>
+        <tr>
+            <td style="background-color:red">Dante's Devil Arm Values</td>
+            <td style="background-color:red">Rebellion</td>
+            <td style="background-color:red">Cerberus</td>
+            <td style="background-color:red">Agni &amp; Rudra</td>
+            <td style="background-color:red">Nevan</td>
+            <td style="background-color:red">Beowulf</td>
+        </tr>
+        <tr>
+            <td style="background-color:red">Launch<span>&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+            <td>High time: 12 <br> Drive: 12 <br> PropShredder: 4+4+4 Knockaway; 12+12+12 Stun </td>
+            <td>Crystal: 12+12+12</td>
+            <td>Whirlwind: 12 <br> Twister:16+16+16</td>
+            <td>Reverb Shock: 12 <br> Bat Rift: 12</td>
+            <td>Combo 1: 20 <br> Beast Uppercut: 20 <br> Rising Dragon*: 20×1-6 (cancels Beast Uppercut) <br> Real Impact: 120+120+120,</td>
+        </tr>
+        <tr>
+            <td style="background-color:red">Knockback</td>
+            <td>Helm Breaker (Second hit, while the enemy is on the ground, if you do not jump cancel it): 12 <br> Combo 1: 12 <br> Combo 2: 12 <br> Stinger: 12 <br> Million Stab: 12 <br> Full Aerial Rave: 12 <br> Sword Pierce: 12 (Initial Hit only) <br> Dance Macabre: 12 <br> Crazy Dance: 12 (cancels the last hit of Dance Macabre)</td>
+            <td>Combo 1: 12 <br> Satellite: 12+12+12 <br> Revolver: 12 <br> Million Carats: 12</td>
+            <td>Aerial Cross: 16 <br> Combo 1: 16 <br> Combo 3: 12 <br> Million Slash: 16 <br> Jetstream : 16 (Last Hit) <br> Crossed Swords: 16 <br> Tempest: 16×4, <!--Add link to ultimate tempest when made-->Ultimate Tempest: 16x8 <br> Skydance: 16 (Last Hit on the ground)</td>
+            <td>Combo 3: 12 <br> Jam Session: 12 <br> Crazy Roll: 12 <br> Air Slash: 12+12</td>
+            <td>Straight: 20 <br> Zodiac: 20 <br> Volcano: 20</td>
+        </tr>
+        <tr>
+            <td style="background-color:red">Knockdown</td>
+            <td>Helm Breaker: 12 (The first hit, while the enemy is in the air or on the ground)</td>
+            <td>N/A</td>
+            <td>Skydance: 16 per hit (on descent)</td>
+            <td>N/A</td>
+            <td>Combo 2: 20 <br> Hammer: 20</td>
+        </tr>
+    </tbody>
+</table>
+	
+	
+
+<br>	
+<p style="color: white" class="unshitter">This table shows how much each gun attack weakens enemy resistance. </p>
+<table style="color: white; margin-left: 7%; margin-right: 25%; line-height: 1.5;" class="moveTable">
+    <tbody>
+        <tr>
+            <th style="background-color:red">Dante's Gun Values</th>
+            <th style="background-color:red">Ebony &amp; Ivory</th>
+            <th style="background-color:red">Shotgun</th>
+            <th style="background-color:red">Spiral</th>
+            <th style="background-color:red">Artemis</th>
+            <th style="background-color:red">Kalina Ann</th>
+        </tr>
+        <tr>
+            <th style="background-color:red">Knockback</th>
+          <td>Wild Stomp: 12<br></td>
+            <td>Single Shot*: 26.00001526<br> 
+          Charge Shot: 52<br> Gun Stinger: 30<br></td>
+            <td><br>Trick Shot: 5 hits, 2 knockback per, 3 stun per.<br>Single Shot: 20</td>
+            <td>None</td>
+            <td>Single Shot: 50 <br> Grapple: 12<br></td>
+        </tr>
+        <tr>
+            <th style="background-color:red">Stun</th>
+            <td>Single bullet: 1 <br> Rapidshot: 1 (faster, of course)<br> Charged shot: 12 <br> Twosome Time: 3 (6 if you fire with both guns on one enemy) <br> Rainstorm: 3 (per hit)<br></td>
+            <td></td>
+            <td><br></td>
+            <td><br><br>Single Shot: 12, <br>Sphere: 60 per hit <br> Acid rain: No data<br></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+	
+<p style="color: white" class="unshitter">*The shotgun is a curious weapon. It acts as a sort of "reset" for the Knockaway counter. If you use the Shotgun to break the Knockaway counter, and the amount of Knockback that breaks the Knockaway counter is less than 13, nothing will happen. The enemy will not be knocked back.</p>
+	
+	
+<hr>	
+
+<h2 style="color: white" id="BnB">Resources</h2>
+<p style="color: white" class="unshitter">
+All of the data shown in this article was taken mostly word for word from <a href="https://cuhrayzeegames.boards.net/thread/46/dtd-stun-mechanics" style="color:#549CFF">this thread in the Cuhrayzee forums</a>, with some slight changes to make it more concise. <br><br>
+
+I found out about this tech from BeeG's video <a href="https://www.youtube.com/watch?v=OUS9rjWgHwU" style="color:#549CFF">"The Mechanic in DMC3 That Nobody Talks About"</a>. His channel is definitely worth a look for great DMC combos and shitposts so I've linked to his channel <a href="https://www.youtube.com/@BeeGBoss" style="color:#549CFF">here</a>.
+<br><br>
+There's also a tool which shows data about the enemy's resistances in game which can be found through <a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbEZ6ZmdqU08xeGY4U1BvbDNlMUtveXJGbDRBd3xBQ3Jtc0ttcEVuTFhwWmhsQ0N0SnNfamFNWTdWRmJ5NldfN0w4UDJCMlBDNDFVbVI0VFR5TnR4UC1oNDJfa0cwY0JRbExsdm9TeXU4ZGpueHRHVjYzZF8wRmRfOFVsYWZvN2Q0MERmUkM0Q3JNaDB4a29jZ1l3MA&q=https%3A%2F%2Fonedrive.live.com%2F%3Fauthkey%3D%2521AFPhRKxzR2VFOmM%26id%3D7F149EDFC17DE208%2521127%26cid%3D7F149EDFC17DE208%26parId%3Droot%26parQt%3Dsharedby%26o%3DOneUp&v=OUS9rjWgHwU" style="color:#549CFF">this OneDrive link</a>. I assume it only works for the HD Collection based off the filename but I don't have the standalone PC version of DMC3 so I can't test it sadly.
+	
+</p>
+</main>
+
+	
+<aside>
+  <div id="nav-sidebar"></div>
+	
+<script>
+$(function(){
+    $("#nav-sidebar").load("side-nav.html");
+});
+</script>
+</aside>
+</body>
+
+
+<br>
+
+</html>
