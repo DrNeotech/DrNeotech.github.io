@@ -1,2 +1,2 @@
 # DrNeotech.github.io
-Resources to help people improve with the Devil May Cry games and help me improve with web design
+A website to count the number of times I throw my hat at TK
