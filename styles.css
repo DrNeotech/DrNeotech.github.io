@@ -4,6 +4,15 @@ body {
     padding: 0;
 }
 
+.vl {
+    border-left: 3px solid black;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    top: 40%;
+}
+
 header {
     background-color: #333;
     color: #fff;
@@ -25,10 +34,15 @@ footer {
     width: 100%;
 }
 
+.bText {
+    font-size: 200%;
+}
+
 #counter {
     text-align: center;
 }
 
 button {
-    display: none; /* Hide the button */
+    display: none;
+    /* Hide the button */
 }
