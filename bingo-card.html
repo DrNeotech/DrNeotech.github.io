@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House M.D Bingo</title>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .grid-item {
+            background-color: lightblue;
+            border: 1px solid #000;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid-item-clicked {
+            background-color: rgb(236, 115, 115);
+            border: 1px solid #000;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .freeSpace {
+            background-color: rgb(236, 115, 115);
+            border: 1px solid #000;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="grid" class="grid-container">
+        <!-- 25 grid items for a 5x5 grid -->
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div class="freeSpace">House is rude to someone (Free Space)</div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+        <div onclick="change(event)" class="grid-item"></div>
+    </div>
+
+    <script>
+        var bingoList = new Array(
+            "Paraneoplastic syndrome is mentioned",
+            "It was cancer",
+            "Patient dies",
+            "House says something sexual to Cuddy",
+            "House steals Wilson's food",
+            "Liver biopsy",
+            "House eureka moment from unrelated conversation",
+            "Lupus mentioned",
+            "House asks Cuddy for an outrageous test",
+            "House interupts Wilson talking to a patient",
+            "Everybody lies",
+            "Blood from an unusual place",
+            "Allergic to the treatment",
+            "Patient goes blind or deaf",
+            "Patient checked for illicit drugs",
+            "House bashes religion",
+            "Someone other than House solves the case",
+            "House pranks someone",
+            "Patient's life goes against House's code of conduct",
+            "House makes up a medical mystery out of seemingly nowhere",
+            "Cold open fake out patient",
+            "House pries into a coworker's personal life",
+            "There's an idiot in the clinic",
+            "House risks his life for a diagnosis",
+            "Lumbar puncture",
+            "Patient has a seizure",
+            "House psychoanalyses someone (not a patient)",
+            "Patient gets paralysis",
+            "Patient family member arguing with House in Cuddy's office",
+            "House says a slur",
+            "House makes patient's personality trait into a symptom",
+            "House avoids clinic duty"
+        )
+
+        function change(event) {
+            if (event.srcElement.className == "grid-item") {
+                event.srcElement.classList.remove("grid-item");
+                event.srcElement.classList.add("grid-item-clicked");
+            } else {
+                event.srcElement.classList.remove("grid-item-clicked");
+                event.srcElement.classList.add("grid-item");
+            }
+        }
+
+        function getRandomInt(min, max) {
+            const minCeiled = Math.ceil(min);
+            const maxFloored = Math.floor(max);
+            return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+        }
+
+        const grid = document.getElementsByClassName("grid-item");
+        console.log(grid);
+
+
+        for (let i = 0; i < Object.keys(grid).length; i++) {
+            var randomNum = getRandomInt(0, bingoList.length);
+            grid[i].textContent = bingoList[randomNum];
+            bingoList.splice(randomNum, 1);
+        }
+
+    </script>
+
+</body>
+
+
+
+</html>
