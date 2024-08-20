@@ -36,34 +36,51 @@
             padding: 10px;
         }
 
-        h1, p {
+        h1,
+        p {
             color: white;
         }
-        
     </style>
 </head>
 
 <body>
     <div class="center">
         <h1>Talking Headsdle</h1>
-        <p>Heardle but only Talking Heads. Fuck you.</p>
+        <p>Heardle but only Talking Heads. Lmao.</p>
         <button id="play-random" onclick="playAudio()">Play Song Snippet (7 seconds)</button>
-    
+
         <audio id="audio-player" preload="none"></audio>
-    
+
         <br><br>
-    
+
         <div id="selections">
             <select id="album-select" class="incorrect">
                 <option value="">Select an album</option>
             </select>
+
             <select id="song-select" class="incorrect">
                 <option value="">Select a song</option>
             </select>
+
             <button onclick="submit()">Submit</button>
         </div>
     </div>
- 
+
+    <script type="module">
+        import confetti from "https://cdn.skypack.dev/canvas-confetti";
+
+        function throwConfetti(event) {
+            confetti({
+                origin: {
+                    x: (event.pageX / window.innerWidth),
+                    y: (event.pageY / window.innerHeight)
+                }
+            });
+        }
+
+        window.throwConfetti = throwConfetti;
+    </script>
+
     <script>
         const albums = {
             "Talking Heads '77": {
@@ -248,6 +265,7 @@
                 if (songSelect.value == randomSong) {
                     songSelect.classList.remove("incorrect");
                     songSelect.classList.add("correct");
+                    throwConfetti(event);
                 } else {
                     songSelect.classList.remove("correct");
                     songSelect.classList.add("incorrect");
@@ -269,6 +287,7 @@
         };
 
         populateAlbums();
+
     </script>
 </body>
 
