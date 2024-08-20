@@ -4,158 +4,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>House M.D Bingo</title>
+    <title>Talking Headsdle</title>
     <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(5, 1fr);
-            max-width: 500px;
-            margin: 0 auto;
+        body {
+            font-family: Arial, sans-serif;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("https://i.imgur.com/HvYQDe5.jpeg");
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .incorrect {
+            background-color: cornflowerblue;
+        }
+
+        .correct {
+            background-color: lime;
+        }
+
+        .center {
+            margin: auto;
             text-align: center;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+            width: 50%;
+            padding: 10px;
         }
 
-        .grid-item {
-            background-color: lightblue;
-            border: 1px solid #000;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        h1, p {
+            color: white;
         }
-
-        .grid-item-clicked {
-            background-color: rgb(236, 115, 115);
-            border: 1px solid #000;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .freeSpace {
-            background-color: rgb(236, 115, 115);
-            border: 1px solid #000;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        
     </style>
 </head>
 
 <body>
-    <div id="grid" class="grid-container">
-        <!-- 25 grid items for a 5x5 grid -->
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div class="freeSpace">House is rude to someone (Free Space)</div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
-        <div onclick="change(event)" class="grid-item"></div>
+    <div class="center">
+        <h1>Talking Headsdle</h1>
+        <p>Heardle but only Talking Heads. Fuck you.</p>
+        <button id="play-random" onclick="playAudio()">Play Song Snippet (7 seconds)</button>
+    
+        <audio id="audio-player" preload="none"></audio>
+    
+        <br><br>
+    
+        <div id="selections">
+            <select id="album-select" class="incorrect">
+                <option value="">Select an album</option>
+            </select>
+            <select id="song-select" class="incorrect">
+                <option value="">Select a song</option>
+            </select>
+            <button onclick="submit()">Submit</button>
+        </div>
     </div>
-
+ 
     <script>
-        var bingoList = new Array(
-            "Paraneoplastic syndrome is mentioned",
-            "Could be cancer",
-            "Patient dies",
-            "House says something sexual to Cuddy",
-            "House steals Wilson's food",
-            "Liver biopsy",
-            "House eureka moment from unrelated conversation",
-            "Lupus mentioned",
-            "House asks Cuddy for an outrageous test",
-            "House interupts Wilson talking to a patient",
-            "Everybody lies",
-            "Blood from an unusual place",
-            "Allergic to the treatment",
-            "Patient goes blind or deaf",
-            "Patient checked for illicit drugs",
-            "House bashes religion",
-            "Someone other than House solves the case",
-            "House pranks someone",
-            "Patient's life goes against House's code of conduct",
-            "House makes up a medical mystery out of seemingly nowhere",
-            "Cold open fake out patient",
-            "House pries into a coworker's personal life",
-            "There's an idiot in the clinic",
-            "House risks his life for a diagnosis",
-            "Lumbar puncture",
-            "Patient has a seizure",
-            "House psychoanalyses someone (not a patient)",
-            "Patient gets paralysis",
-            "Patient family member arguing with House in Cuddy's office",
-            "House says a slur",
-            "House makes patient's personality trait into a symptom",
-            "House avoids clinic duty",
-            "House commits a crime",
-            "House says a bizzare metaphor",
-            "Something they do for treatment makes the patient worse",
-            "Random melancholic song",
-            "Multiple sclerosis mentioned",
-            "'What's wrong with him?' 'I don't know'",
-            "House commits medical malpractice",
-            "'Where's Dr. House? I want to talk to Dr. House'",
-            "'(Symptom) means we were wrong about (diagnosis)'"
-        )
+        const albums = {
+            "Talking Heads '77": {
+                "Uh-Oh, Love Comes to Town": "https://p.scdn.co/mp3-preview/82084df007395170246c95ccd9ff16c297f98bb6?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "New Feeling": "https://p.scdn.co/mp3-preview/c313108916e180d28b56155986dc770bc4f3a84a?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Tentative Decisions": "https://p.scdn.co/mp3-preview/69ffea8a1e62491fd0c48110b33a67d28453fde6?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Happy Day": "https://p.scdn.co/mp3-preview/b7c99c5f5c82bb3b2e871b340608f18574249f07?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Who Is It?": "https://p.scdn.co/mp3-preview/d24589e02aa67a36aeaf73bf305ab3036de4ccc7?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "No Compassion": "https://p.scdn.co/mp3-preview/e3f8c4f856fed193000ecd12ced53312d997bff4?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "The Book I Read": "https://p.scdn.co/mp3-preview/c5ee36fa257f8534d206890b72e8c5ab6524f1bd?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Don't Worry About the Government": "https://p.scdn.co/mp3-preview/9422bd622bb7a9aca436da9c08a0bacc41c7b484?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "First Week / Last Week....Carefree": "https://p.scdn.co/mp3-preview/681763b98cd7c43ec743911fb6d48375f08dcc94?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Psycho Killer": "https://p.scdn.co/mp3-preview/dc5f37a0150178ec981bfe2c7bd702d0437e9630?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Pulled Up": "https://p.scdn.co/mp3-preview/0e73bb3b60c057ba6c3ac5ab091483d8b3ba6e82?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Love -> Building on Fire": "https://p.scdn.co/mp3-preview/1fa6be8bff79c4ebf2b010b9172aeb9bdce71fb5?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "I Wish You Wouldn't Say That": "https://p.scdn.co/mp3-preview/e24e0af0a9a32ec615f8d5d49bfbb1db3ea9434d?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Psycho Killer - Acoustic": "https://p.scdn.co/mp3-preview/e4f9b5c053402548335d2a9cfd443645f4c6b489?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "I Feel It in My Heart": "https://p.scdn.co/mp3-preview/1448c1d9abebd54fc00bba0c915b846edbbea12c?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Sugar on My Tongue": "https://p.scdn.co/mp3-preview/cf6f400958d7148126a222793744498b5d3e48a6?cid=e73dd0f0613d495ba5a6340ed48bcfb8"
+            },
 
-        function change(event) {
-            if (event.srcElement.className == "grid-item") {
-                event.srcElement.classList.remove("grid-item");
-                event.srcElement.classList.add("grid-item-clicked");
-            } else {
-                event.srcElement.classList.remove("grid-item-clicked");
-                event.srcElement.classList.add("grid-item");
+            "More Songs About Buildings and Food": {
+                "Thank You for Sending Me an Angel": "https://p.scdn.co/mp3-preview/16fb709205c846aae6ddb1de278f0fa6fc024707?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "With Our Love": "https://p.scdn.co/mp3-preview/2fb157336c3753199ffcbf703d505ad4ed57ba90?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "The Good Thing": "https://p.scdn.co/mp3-preview/96fd55e400408e9cbe5a1093461d37360194e720?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Warning Sign": "https://p.scdn.co/mp3-preview/0535169908bb63e8ad987f123b2ff937ddce7bdb?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "The Girl Wants to Be with the Girls": "https://p.scdn.co/mp3-preview/8e64654c698057e03bfcda3af7ec11c7dce0f8b9?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Found a Job": "https://p.scdn.co/mp3-preview/a143c60d3cfeaf97a206247ab4de880790e60608?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Artists Only": "https://p.scdn.co/mp3-preview/fc2c276f73ff0824b74648559373cb0d498eeab6?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "I'm Not in Love": "https://p.scdn.co/mp3-preview/23b309870a336866b7c82ce4b63bfbbb8b8d2a28?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Stay Hungry": "https://p.scdn.co/mp3-preview/92079d36d85a96c6a740ed43e6acd66b63abf098?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Take Me to the River": "https://p.scdn.co/mp3-preview/2481cdd813eebff9f14896ba24bae3a4e8aefda4?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "The Big Country": "https://p.scdn.co/mp3-preview/2b850cef805a750402c9a8c4584e6468f532b039?cid=e73dd0f0613d495ba5a6340ed48bcfb8"
+            },
+
+            "Fear of Music": {
+                "I Zimbra": "https://p.scdn.co/mp3-preview/81faaf3426de60a7098f5389f0b0972932460f1b?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Mind": "https://p.scdn.co/mp3-preview/8f2e166bf51ab22991beb6c8aa35aef7d09b11eb?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Paper": "https://p.scdn.co/mp3-preview/04641fb9ea9f4f92514322f18c4f1b168431abdf?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Cities": "https://p.scdn.co/mp3-preview/467a17addfba056873a35e327d550bb76371060b?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Life During Wartime": "https://p.scdn.co/mp3-preview/b45011fa85716828cbc67a8c7970238bba8c85e1?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Memories Can't Wait": "https://p.scdn.co/mp3-preview/bb2d4018a254dfbc4ddb2b13a8f63a83f692e588?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Air": "https://p.scdn.co/mp3-preview/c1e286951adb17bc00d70c7cc19ac5748b14a6b4?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Heaven": "https://p.scdn.co/mp3-preview/7f4b1d9af4040fb4de0745c60ada06aa22e11e59?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Animals": "https://p.scdn.co/mp3-preview/ee54453d37efae1db561e646755316ec40108450?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Electric Guitar": "https://p.scdn.co/mp3-preview/4ea228a33b61a6992a88ebe871ec575a3e81ca11?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Drugs": "https://p.scdn.co/mp3-preview/46255a5037b5fadc75cdc013fd2c04cae1b79bd4?cid=e73dd0f0613d495ba5a6340ed48bcfb8"
+            },
+
+            "Remain in Light": {
+                "Born Under Punches (The Heat Goes On)": "https://p.scdn.co/mp3-preview/cae1c5fc6a73cb167809197eaab66794dfe0c327?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Crosseyed and Painless": "https://p.scdn.co/mp3-preview/b88037704315a3519156ac715f4f5369fcd70762?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "The Great Curve": "https://p.scdn.co/mp3-preview/a6be27609e19bc5b81f9017ceb60ed8a654c9912?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Once in a Lifetime": "https://p.scdn.co/mp3-preview/354452e2629e87b8175983136e9a8dfa9d87d0ef?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Houses in Motion": "https://p.scdn.co/mp3-preview/a18e9282d9f8c97a4dbf55d08c665fb476289676?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Seen and Not Seen": "https://p.scdn.co/mp3-preview/62ce98a2116041232e1bc5cf278b2cb083b8364a?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Listening Wind": "https://p.scdn.co/mp3-preview/bd825c694a1bc12f3f9fb754c2c61eff8544838e?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "The Overload": "https://p.scdn.co/mp3-preview/afbc39aee5e23caf68d3e3722406a199429bdb85?cid=e73dd0f0613d495ba5a6340ed48bcfb8"
+            },
+
+            "Speaking in Tongues": {
+                "Burning Down the House": "https://p.scdn.co/mp3-preview/53b34a0b3ac8fce0889458675544934152d47fbb?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Making Flippy Floppy": "https://p.scdn.co/mp3-preview/f629f01add9d0a489a3fc70f0de3c5969bb227f2?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Girlfriend Is Better": "https://p.scdn.co/mp3-preview/3a95988d90d92b68de6c66c718a541b9f2a6678b?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Slippery People": "https://p.scdn.co/mp3-preview/09af27ed63b229a4b08717a8e5a2355b6d560a79?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "I Get Wild / Wild Gravity": "https://p.scdn.co/mp3-preview/12112994bdcd1d2e3972666b003af6fbaad010dc?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Swamp": "https://p.scdn.co/mp3-preview/b5b60c79ed8eeef4560f36fe6a6da22c0e1e9753?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Moon Rocks": "https://p.scdn.co/mp3-preview/20e94435dbd409b051de3919bade9eaac0f7d3a5?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Pull up the Roots": "https://p.scdn.co/mp3-preview/2f554ad1d2023747139be3d2035befc7cd25d990?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "This Must Be the Place (Naive Melody)": "https://p.scdn.co/mp3-preview/54ceba9ea31b0d8b8e01121eb3980d49f003d27e?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Two Note Swivel - Unfinished Outtake": "https://p.scdn.co/mp3-preview/1e39c130ee6df6cc619fca552829061b566f23db?cid=e73dd0f0613d495ba5a6340ed48bcfb8"
+            },
+
+            "Little Creatures": {
+                "And She Was": "https://p.scdn.co/mp3-preview/513ceda2bd365c2e1150a411ebea1c6523d49d8b?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Give Me Back My Name": "https://p.scdn.co/mp3-preview/f71699f6088e3e5b18a1d6564edec4609364dde0?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Creatures of Love": "https://p.scdn.co/mp3-preview/e00eb1ad6dc4b1a429c46ba72cbfaad2b9d71986?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "The Lady Don't Mind": "https://p.scdn.co/mp3-preview/586566b3345ba52c8e0a81ace3fb3e942e4c791a?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Perfect World": "https://p.scdn.co/mp3-preview/6929990cabb7a1b3efa8ccc2f5b9dcfd00593642?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Stay up Late": "https://p.scdn.co/mp3-preview/98a1658c87dde074555b0d07682bf88bc3ade7fb?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Walk It Down": "https://p.scdn.co/mp3-preview/82b0be6f1e123d96eba0dd492a5b75a8492d872d?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Television Man": "https://p.scdn.co/mp3-preview/e9cb9fe90e5fed5b9ee5dc32b775ee8ad3dae423?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Road to Nowhere": "https://p.scdn.co/mp3-preview/cd2504c6bc755cb1cfd2f8fe1aef1fdba5977dc4?cid=e73dd0f0613d495ba5a6340ed48bcfb8"
+            },
+
+            "True Stories": {
+                "Love for Sale": "https://p.scdn.co/mp3-preview/18ca8e6c0ddd04a0a7cf5c2924b5d5d62c5c0448?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Puzzlin' Evidence": "https://p.scdn.co/mp3-preview/41eec4e391a9ab0d08b07d54ca29cec3a9035a31?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Hey Now": "https://p.scdn.co/mp3-preview/f04b6bfda9b8436854ef02ba2525c5f9e9b43416?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Papa Legba": "https://p.scdn.co/mp3-preview/8406031e1afdd920f3c160f533a499dee8d1c5ff?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Wild Wild Life": "https://p.scdn.co/mp3-preview/3119848a00017a87a5e0b345b5cc7d4b14f753e8?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Radio Head": "https://p.scdn.co/mp3-preview/e809363e537f4e8000e8e324bf48ab125f5ffee1?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Dream Operator": "https://p.scdn.co/mp3-preview/0e1ec9273000d1247ed23ac76a97256fe4432140?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "People Like Us": "https://p.scdn.co/mp3-preview/7305cabfe66ce013ad4b241bf91854a1d83d99db?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "City of Dreams": "https://p.scdn.co/mp3-preview/82e12946a54fe324e9ce14f8500cb8dcfa143afd?cid=e73dd0f0613d495ba5a6340ed48bcfb8"
+            },
+
+            "Naked": {
+                "Blind": "https://p.scdn.co/mp3-preview/dbac2b09660e0e952ac8c94fa6f24e5e6a245817?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Mr. Jones": "https://p.scdn.co/mp3-preview/a864eeff3f86b3ea2b3a05c52efa13821467964d?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Totally Nude": "https://p.scdn.co/mp3-preview/df91dd982bff555a177978110bfdac80770a1bc8?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Ruby Dear": "https://p.scdn.co/mp3-preview/478f8c74103ad501f672d5f714d1e9ef972f076c?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "(Nothing But) Flowers": "https://p.scdn.co/mp3-preview/33fb64d19abc254ef0f364568d4e5cbd15bdeb44?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Democratic Circus": "https://p.scdn.co/mp3-preview/9773ac57ef2f78ddd9fdf8a7455f4f37fab3ec00?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Facts of Life": "https://p.scdn.co/mp3-preview/b37adfdb43abedd4fa686e2e0d8ba9438740be9f?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Mommy Daddy You and I": "https://p.scdn.co/mp3-preview/ddc52be40e253b885e5352169079684747ab1662?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Big Daddy": "https://p.scdn.co/mp3-preview/241c464153b3465b181558a60641f16f438cd7d9?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Bill": "https://p.scdn.co/mp3-preview/579c8028821a7b440e39fcf66ac794a187cd8008?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Cool Water": "https://p.scdn.co/mp3-preview/2d938de96c566519042d926edc908a810059aecc?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Sax and Violins": "https://p.scdn.co/mp3-preview/e211e9547529374e92ae10f0682e00bfe7939a74?cid=e73dd0f0613d495ba5a6340ed48bcfb8"
+            },
+
+            "Stop Making Sense": {
+                "Psycho Killer (Live)": "https://p.scdn.co/mp3-preview/6b35bb06e2f745e313efbeb415caf320fea44590?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Heaven (Live)": "https://p.scdn.co/mp3-preview/f352ddb54f3893502f1904f2e4710cc5e271dcb4?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Thank You for Sending Me an Angel (Live)": "https://p.scdn.co/mp3-preview/9eb92097421f2a9678bcf37f6790b661b930c8b7?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Found a Job (Live)": "https://p.scdn.co/mp3-preview/cb7a06be1a3046fca273b2e78d9ad5efdc5f1250?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Slippery People (Live)": "https://p.scdn.co/mp3-preview/14c0b2d29af98fa00a689d6e3f3d82e84af6776d?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Cities (Live)": "https://p.scdn.co/mp3-preview/b980c521cd14b6a5fd0e33440e8fe67e675cc4c8?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Burning Down the House (Live)": "https://p.scdn.co/mp3-preview/62d3f5f9e404e873b8c6296ac94dd7f111044fce?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Life During Wartime (Live)": "https://p.scdn.co/mp3-preview/a916d951b52fd06f7e88e5e8159b1e5101cda570?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Making Flippy Floppy (Live)": "https://p.scdn.co/mp3-preview/3eb8fd94201208fcd057e5a1914c3fa33c8e6959?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Swamp (Live)": "https://p.scdn.co/mp3-preview/081dcbf04f5829c5856ae909762f5baa422cbe84?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "What a Day That Was (Live)": "https://p.scdn.co/mp3-preview/ee29f14d34244e5a06d2a2e3c1065aa7aeee7b62?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "This Must Be the Place (Naive Melody) (Live)": "https://p.scdn.co/mp3-preview/0685b0675a737e3b278f01260e163d73006b2e1e?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Once In a Lifetime (Live)": "https://p.scdn.co/mp3-preview/f9c7b6534c1c16c8f9597c3d74f83493b0e6ba05?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Big Business / I Zimbra (Live)": "https://p.scdn.co/mp3-preview/86d5aa39eccf83f6cd826dfbb6b940e88fcdd2ee?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Genius of Love (Live)": "https://p.scdn.co/mp3-preview/87798cb44bfda4eb0b362fdac6f9ae7be8ec3d42?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Girlfriend is Better (Live)": "https://p.scdn.co/mp3-preview/b4acc18f16068d7ac00dcd6106388fe20ba8a741?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Take Me to the River (Live)": "https://p.scdn.co/mp3-preview/7c9f0a68fede0fd5a50ad7329e006d6bf07dde30?cid=e73dd0f0613d495ba5a6340ed48bcfb8",
+                "Crosseyed and Painless (Live)": "https://p.scdn.co/mp3-preview/2c12556f170d781ae0b203517da98f4457f9948c?cid=e73dd0f0613d495ba5a6340ed48bcfb8"
             }
         }
 
-        function getRandomInt(min, max) {
-            const minCeiled = Math.ceil(min);
-            const maxFloored = Math.floor(max);
-            return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+        const albumSelect = document.getElementById('album-select');
+        const songSelect = document.getElementById('song-select');
+        const playRandomButton = document.getElementById('play-random');
+        const audioPlayer = document.getElementById('audio-player');
+
+        function populateAlbums() {
+            Object.keys(albums).forEach(album => {
+                const option = document.createElement('option');
+                option.value = album;
+                option.textContent = album;
+                albumSelect.appendChild(option);
+            });
         }
 
-        const grid = document.getElementsByClassName("grid-item");
-        console.log(grid);
+        function populateSongs(album) {
+            songSelect.innerHTML = '<option value="">Select a song</option>';
 
-
-        for (let i = 0; i < Object.keys(grid).length; i++) {
-            var randomNum = getRandomInt(0, bingoList.length);
-            grid[i].textContent = bingoList[randomNum];
-            bingoList.splice(randomNum, 1);
+            if (album) {
+                Object.keys(albums[album]).forEach(song => {
+                    const option = document.createElement('option');
+                    option.value = song;
+                    option.textContent = song;
+                    songSelect.appendChild(option);
+                });
+            }
         }
 
+        albumSelect.addEventListener('change', () => {
+            const selectedAlbum = albumSelect.value;
+            populateSongs(selectedAlbum);
+        });
+
+        const albumKeys = Object.keys(albums);
+        const randomAlbum = albumKeys[Math.floor(Math.random() * albumKeys.length)];
+
+        const songKeys = Object.keys(albums[randomAlbum]);
+        const randomSong = songKeys[Math.floor(Math.random() * songKeys.length)];
+
+        const songUrl = albums[randomAlbum][randomSong];
+
+        function submit() {
+            var pickedAlbum = document.getElementById('album-select');
+            var pickedSong = document.getElementById('song-select');
+
+            if (pickedAlbum.value == randomAlbum) {
+                albumSelect.classList.remove("incorrect");
+                albumSelect.classList.add("correct");
+                if (songSelect.value == randomSong) {
+                    songSelect.classList.remove("incorrect");
+                    songSelect.classList.add("correct");
+                } else {
+                    songSelect.classList.remove("correct");
+                    songSelect.classList.add("incorrect");
+                }
+            } else {
+                albumSelect.classList.remove("correct");
+                albumSelect.classList.add("incorrect");
+            }
+        }
+
+        function playAudio() {
+            audioPlayer.src = songUrl;
+            audioPlayer.play();
+
+            setTimeout(() => {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0; // Optional: Reset playback to the beginning
+            }, 7000);
+        };
+
+        populateAlbums();
     </script>
-
 </body>
-
-
 
 </html>
