@@ -22,11 +22,15 @@
         }
 
         .incorrect {
-            background-color: cornflowerblue;
+            background-color: rgb(237, 100, 100);
         }
 
         .correct {
             background-color: lime;
+        }
+
+        .default {
+            background-color: cornflowerblue;
         }
 
         .center {
@@ -54,16 +58,19 @@
         <br><br>
 
         <div id="selections">
-            <select id="album-select" class="incorrect">
+            <select id="album-select" class="default">
                 <option value="">Select an album</option>
             </select>
 
-            <select id="song-select" class="incorrect">
+            <select id="song-select" class="default">
                 <option value="">Select a song</option>
             </select>
 
             <button onclick="submit()">Submit</button>
         </div>
+        <p>Your score: <span id="percent"></span>%</p>
+
+        <button ondblclick="reset()">Reset Score (double click)</button>
     </div>
 
     <script type="module">
@@ -247,36 +254,72 @@
             populateSongs(selectedAlbum);
         });
 
-        const albumKeys = Object.keys(albums);
-        const randomAlbum = albumKeys[Math.floor(Math.random() * albumKeys.length)];
+        if (localStorage.score) {
+            var percent = (Number(localStorage.score) / Number(localStorage.attempts) * 100).toFixed(2);
+            document.getElementById("percent").innerHTML = percent;
+        } else {
+            localStorage.score = 0;
+            localStorage.attempts = 0;
+        }
 
-        const songKeys = Object.keys(albums[randomAlbum]);
-        const randomSong = songKeys[Math.floor(Math.random() * songKeys.length)];
+        function reset() {
+            localStorage.score = 0;
+            localStorage.attempts = 0;
+            var percent = (Number(localStorage.score) / Number(localStorage.attempts) * 100).toFixed(2);
+            document.getElementById("percent").innerHTML = percent;
+        }
 
-        const songUrl = albums[randomAlbum][randomSong];
+        var albumKeys = Object.keys(albums);
+        var randomAlbum = albumKeys[Math.floor(Math.random() * albumKeys.length)];
+
+        var songKeys = Object.keys(albums[randomAlbum]);
+        var randomSong = songKeys[Math.floor(Math.random() * songKeys.length)];
+
+        var songUrl = albums[randomAlbum][randomSong];
+        
 
         function submit() {
             var pickedAlbum = document.getElementById('album-select');
             var pickedSong = document.getElementById('song-select');
+            localStorage.attempts = Number(localStorage.attempts) + 1;
 
             if (pickedAlbum.value == randomAlbum) {
-                albumSelect.classList.remove("incorrect");
+                albumSelect.classList.remove("default");
                 albumSelect.classList.add("correct");
+
+                localStorage.score = Number(localStorage.score) + 0.5;
+
                 if (songSelect.value == randomSong) {
-                    songSelect.classList.remove("incorrect");
+                    songSelect.classList.remove("default");
                     songSelect.classList.add("correct");
+
+                    localStorage.score = Number(localStorage.score) + 0.5;
+
                     throwConfetti(event);
+
+                    
+
                 } else {
-                    songSelect.classList.remove("correct");
+                    songSelect.classList.remove("default");
                     songSelect.classList.add("incorrect");
                 }
             } else {
-                albumSelect.classList.remove("correct");
+                albumSelect.classList.remove("default");
                 albumSelect.classList.add("incorrect");
+
+                songSelect.classList.remove("default");
+                songSelect.classList.add("incorrect");
             }
+            var percent = (Number(localStorage.score) / Number(localStorage.attempts) * 100).toFixed(2);
+            document.getElementById("percent").innerHTML = percent;
+
+            document.getElementById("play-random").innerHTML = "Click for new song";
         }
 
         function playAudio() {
+            if (document.getElementById("play-random").innerHTML == "Click for new song") {
+                location.reload();
+            }
             audioPlayer.src = songUrl;
             audioPlayer.play();
 
@@ -287,7 +330,6 @@
         };
 
         populateAlbums();
-
     </script>
 </body>
 
