@@ -1,17 +1,202 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Kait Album of the Day</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <meta property="og:url" content="">
-        <meta property="og:type" content="Kaitlyn's Album of the Day">
-        <meta property="og:title" content="example title">
-        <meta property="og:description" content="example description">
-        <meta property="og:image" content="https://i0.wp.com/bamfstyle.com/wp-content/uploads/2024/10/SMSBigSuit-MAIN1.jpg">
-        <meta name="twitter:card" content="https://68.media.tumblr.com/03fa6754a7377df4db189e3190daa0f3/tumblr_inline_ok9kn1FkDn1qf0t7e_540.jpg">
-    </head>
-    <body>
-        <h1>Kaitlyn's Albums of the Day</h1>
-        <p>lorem ipsum lmao</p>
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House M.D Bingo</title>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .grid-item {
+            background-color: lightblue;
+            border: 1px solid #000;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid-item-clicked {
+            background-color: rgb(236, 115, 115);
+            border: 1px solid #000;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .freeSpace {
+            background-color: rgb(236, 115, 115);
+            border: 1px solid #000;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="grid" class="grid-container">
+        <!-- 25 grid items for a 5x5 grid -->
+        <div id="1" onclick="change(event)" class="grid-item"></div>
+        <div id="2" onclick="change(event)" class="grid-item"></div>
+        <div id="3" onclick="change(event)" class="grid-item"></div>
+        <div id="4" onclick="change(event)" class="grid-item"></div>
+        <div id="5" onclick="change(event)" class="grid-item"></div>
+
+        <div id="6" onclick="change(event)" class="grid-item"></div>
+        <div id="7" onclick="change(event)" class="grid-item"></div>
+        <div id="8" onclick="change(event)" class="grid-item"></div>
+        <div id="9" onclick="change(event)" class="grid-item"></div>
+        <div id="10" onclick="change(event)" class="grid-item"></div>
+
+        <div id="11" onclick="change(event)" class="grid-item"></div>
+        <div id="12" onclick="change(event)" class="grid-item"></div>
+        <div id="13" class="freeSpace">House is rude to someone (Free Space)</div>
+        <div id="14" onclick="change(event)" class="grid-item"></div>
+        <div id="15" onclick="change(event)" class="grid-item"></div>
+
+        <div id="16" onclick="change(event)" class="grid-item"></div>
+        <div id="17" onclick="change(event)" class="grid-item"></div>
+        <div id="18" onclick="change(event)" class="grid-item"></div>
+        <div id="19" onclick="change(event)" class="grid-item"></div>
+        <div id="20" onclick="change(event)" class="grid-item"></div>
+
+        <div id="21" onclick="change(event)" class="grid-item"></div>
+        <div id="22" onclick="change(event)" class="grid-item"></div>
+        <div id="23" onclick="change(event)" class="grid-item"></div>
+        <div id="24" onclick="change(event)" class="grid-item"></div>
+        <div id="25" onclick="change(event)" class="grid-item"></div>
+    </div>
+
+    <script>
+        var bingoList = new Array(
+            "Paraneoplastic syndrome is mentioned",
+            "Could be cancer",
+            "Patient dies",
+            "House says something sexual to Cuddy",
+            "House steals Wilson's food",
+            "Liver biopsy",
+            "House eureka moment from unrelated conversation",
+            "Lupus mentioned",
+            "House asks Cuddy for an outrageous test",
+            "House interupts Wilson talking to a patient",
+            "Everybody lies",
+            "Blood from an unusual place",
+            "Allergic to the treatment",
+            "Patient goes blind or deaf",
+            "Patient checked for illicit drugs",
+            "House bashes religion",
+            "Someone other than House solves the case",
+            "House pranks someone",
+            "Patient's life goes against House's code of conduct",
+            "House makes up a medical mystery out of seemingly nowhere",
+            "Cold open fake out patient",
+            "House pries into a coworker's personal life",
+            "There's an idiot in the clinic",
+            "House risks his life for a diagnosis",
+            "Lumbar puncture",
+            "Patient has a seizure",
+            "House psychoanalyses someone (not a patient)",
+            "Patient gets paralysis",
+            "Patient family member arguing with House in Cuddy's office",
+            "House says a slur",
+            "House makes patient's personality trait into a symptom",
+            "House avoids clinic duty",
+            "House commits a crime",
+            "House says a bizzare metaphor",
+            "Something they do for treatment makes the patient worse",
+            "Random melancholic song",
+            "Multiple sclerosis mentioned",
+            "'What's wrong with him?' 'I don't know'",
+            "House commits medical malpractice",
+            "'Where's Dr. House? I want to talk to Dr. House'",
+            "'(Symptom) means we were wrong about (diagnosis)'",
+            "One of House's employees disagrees a patient's personal life",
+            "House acts insane and paranoid about something minor Wilson does",
+            "Completely absurd symptom",
+            "x milligrams of _____azepam",
+            "Total body irradiation",
+        )
+
+        var bingoGrid = new Array(
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        )
+
+        function change(event) {
+            var isClicked = 0;
+            if (event.srcElement.className == "grid-item") {
+                event.srcElement.classList.remove("grid-item");
+                event.srcElement.classList.add("grid-item-clicked");
+                isClicked = 1;
+            } else if (event.srcElement.className == "grid-item-clicked") {
+                event.srcElement.classList.remove("grid-item-clicked");
+                event.srcElement.classList.add("grid-item");
+                isClicked = 0;
+            }
+            check(parseInt(event.srcElement.id)-1, isClicked);
+        }
+
+        function check(itemNum, pressed) {
+            bingoGrid[Math.floor(itemNum / 5)][itemNum % 5] = pressed;
+            console.log(bingoGrid)
+                
+            for (var i = 0; i < 5; i++) {
+                if (bingoGrid[i].reduce((a, b) => a + b, 0) == 5) {
+                    alert("You win!! Horizontal");
+                    return;
+                }
+                for (var j = 0; j < 5; j++) {
+                    if (bingoGrid[0][j] + bingoGrid[1][j] + bingoGrid[2][j] + bingoGrid[3][j] + bingoGrid[4][j] == 5) {
+                        alert("You win!! Vertical");
+                        return;
+                    } else if (bingoGrid[0][0] + bingoGrid[1][1] + bingoGrid[2][2] + bingoGrid[3][3] + bingoGrid[4][4] == 5 || bingoGrid[0][4] + bingoGrid[1][3] + bingoGrid[2][2] + bingoGrid[3][1] + bingoGrid[4][0] == 5){
+                        alert("You win!! Diagonal");
+                        return;
+                    }
+                    
+                }
+            }
+        }
+
+        function findBingo() {
+
+        }
+
+        function getRandomInt(min, max) {
+            const minCeiled = Math.ceil(min);
+            const maxFloored = Math.floor(max);
+            return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+        }
+
+        const grid = document.getElementsByClassName("grid-item");
+
+        for (let i = 0; i < Object.keys(grid).length; i++) {
+            var randomNum = getRandomInt(0, bingoList.length);
+            grid[i].textContent = bingoList[randomNum];
+            bingoList.splice(randomNum, 1);
+        }
+
+    </script>
+
+</body>
+
+
+
 </html>
