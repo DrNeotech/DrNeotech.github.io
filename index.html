@@ -64,7 +64,7 @@
 
         <div id="11" onclick="change(event)" class="grid-item"></div>
         <div id="12" onclick="change(event)" class="grid-item"></div>
-        <div id="13" class="freeSpace">House is rude to someone (Free Space)</div>
+        <div id="13" class="freeSpace">Free Space</div>
         <div id="14" onclick="change(event)" class="grid-item"></div>
         <div id="15" onclick="change(event)" class="grid-item"></div>
 
@@ -88,7 +88,7 @@
             "Patient dies",
             "House says something sexual to Cuddy",
             "House steals Wilson's food",
-            "Liver biopsy",
+            "Biopsy",
             "House eureka moment from unrelated conversation",
             "Lupus mentioned",
             "House asks Cuddy for an outrageous test",
@@ -104,12 +104,13 @@
             "Patient's life goes against House's code of conduct",
             "House makes up a medical mystery out of seemingly nowhere",
             "Cold open fake out patient",
+            "House is rude to someone",
             "House pries into a coworker's personal life",
             "There's an idiot in the clinic",
-            "House risks his life for a diagnosis",
+            "House risks a life for a diagnosis",
             "Lumbar puncture",
             "Patient has a seizure",
-            "House psychoanalyses someone (not a patient)",
+            "House psychoanalyses someone",
             "Patient gets paralysis",
             "Patient family member arguing with House in Cuddy's office",
             "House says a slur",
@@ -124,11 +125,15 @@
             "House commits medical malpractice",
             "'Where's Dr. House? I want to talk to Dr. House'",
             "'(Symptom) means we were wrong about (diagnosis)'",
-            "One of House's employees disagrees a patient's personal life",
+            "Doctor disagrees a patient's personal life",
             "House acts insane and paranoid about something minor Wilson does",
             "Completely absurd symptom",
-            "x milligrams of _____azepam",
             "Total body irradiation",
+            "Patient has a heart attack",
+            "Patient has a stroke",
+            "Ironic disease",
+            "Shitty looking graphic effect",
+            "Chase is a yes man"
         )
 
         var bingoGrid = new Array(
@@ -159,20 +164,20 @@
                 
             for (var i = 0; i < 5; i++) {
                 if (bingoGrid[i].reduce((a, b) => a + b, 0) == 5) {
-                    alert("You win!! Horizontal");
+                    alert("You win!!");
                     return;
                 }
                 for (var j = 0; j < 5; j++) {
                     if (bingoGrid[0][j] + bingoGrid[1][j] + bingoGrid[2][j] + bingoGrid[3][j] + bingoGrid[4][j] == 5) {
-                        alert("You win!! Vertical");
+                        alert("You win!!");
                         return;
                     } else if (bingoGrid[0][0] + bingoGrid[1][1] + bingoGrid[2][2] + bingoGrid[3][3] + bingoGrid[4][4] == 5 || bingoGrid[0][4] + bingoGrid[1][3] + bingoGrid[2][2] + bingoGrid[3][1] + bingoGrid[4][0] == 5){
-                        alert("You win!! Diagonal");
+                        alert("You win!!");
                         return;
                     }
                     
                 }
-            }
+            }                                               
         }
 
         function findBingo() {
@@ -182,7 +187,7 @@
         function getRandomInt(min, max) {
             const minCeiled = Math.ceil(min);
             const maxFloored = Math.floor(max);
-            return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+            return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
         }
 
         const grid = document.getElementsByClassName("grid-item");
