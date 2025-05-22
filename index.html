@@ -59,7 +59,7 @@
             <input type="number" id="minimum" name="minimum-songs" min="1" value="1">
             <br><br>
             <label for="size">Size of tiles (in pixels):</label><br>
-            <input type="number" id="size" name="size" min="1" value="1">
+            <input type="number" id="size" name="size" min="1" value="50">
             <br><br>
             <button type="button" onclick="getParameters()">Generate Image</button>
 
@@ -100,7 +100,7 @@
                 tile_size: params[4].value
             };
 
-            fetch("/api/", {
+            fetch("http://172.24.189.237:5000/api/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
