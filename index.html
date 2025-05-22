@@ -103,6 +103,7 @@
             fetch("https://f50f-203-153-16-178.ngrok-free.app/api/", {
                 method: "POST",
                 headers: {
+                    "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
