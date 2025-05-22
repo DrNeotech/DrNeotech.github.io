@@ -59,7 +59,7 @@
             <input type="number" id="minimum" name="minimum-songs" min="1" value="1">
             <br><br>
             <label for="size">Size of tiles (in pixels):</label><br>
-            <input type="number" id="size" name="size" min="1" value="50">
+            <input type="number" id="size" name="size" min="1" value="49">
             <br><br>
             <button type="button" onclick="getParameters()">Generate Image</button>
 
@@ -100,7 +100,7 @@
                 tile_size: params[4].value
             };
 
-            fetch("https://0f08-203-153-16-178.ngrok-free.app/api/", {
+            fetch("https://8661-203-153-16-178.ngrok-free.app/api/", {
                 method: "POST",
                 headers: {
                     "Access-Control-Allow-Origin": "*",
