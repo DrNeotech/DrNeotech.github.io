@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #chartDiv {
+                border:1px solid black;
+                display: grid;
+                grid-template-columns: repeat(var(--grid-length), minmax(120px, 140px));
+                grid-template-rows: repeat(var(--grid-length), minmax(120px, 140px));
+                max-width: fit-content;
+            }
+
+            .grid-item {
+                border:1px solid black;
+                aspect-ratio: 1/1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+                text-align: center;
+                word-break: break-word; 
+                background: #f2f2f2;
+                border-radius: 6px;
+                user-select: none; 
+            }
+
+            .selected {
+                background-color: #dd8601;
+            }
+
+            .box {
+                width: 40%;
+                margin: 0 auto;
+                background: rgba(255,255,255,0.2);
+                padding: 35px;
+                border: 2px solid #fff;
+                border-radius: 20px/50px;
+                background-clip: padding-box;
+                text-align: center;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.7);
+                transition: opacity 500ms;
+                visibility: hidden;
+                opacity: 0;
+            }
+                
+            .overlayShow {
+                visibility: visible;
+                opacity: 1;
+            }
+
+            .popup {
+                margin: 70px auto;
+                padding: 20px;
+                background: #fff;
+                border-radius: 5px;
+                width: 30%;
+                position: relative;
+                transition: all 5s ease-in-out;
+            }
+
+            .popup h2 {
+                margin-top: 0;
+                color: #333;
+                font-family: Tahoma, Arial, sans-serif;
+            }
+            .popup .close:hover {
+                color: #06D85F;
+            }
+            .popup .content {
+                max-height: 30%;
+                overflow: auto;
+            }
+
+            @media screen and (max-width: 700px){
+                .box{
+                    width: 70%;
+                }
+                .popup{
+                    width: 70%;
+                }
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>House M.D Bingo Chart</h1>
+        <h2>Settings:</h2>
+        <form>
+            <label>Sheet Size:</label>
+            <select id="size">
+                <option value="5">5x5</option>
+                <option value="4">4x4</option>
+                <option value="3">3x3</option>
+            </select>
+            <button type="button" onclick="initChart()">Generate Sheet</button>
+        </form>
+        <br>
+        <hr>
+        <div id="chartDiv"></div>
+        
+        <div id="popup1" class="overlay">
+            <div class="popup">
+                <h2>You win!</h2>
+                <div class="tenor-gif-embed" data-postid="11916099077674228393" data-share-method="host" data-aspect-ratio="0.967871" data-width="100%"><a href="https://tenor.com/view/dr-house-house-gif-11916099077674228393">Dr House GIF</a>from <a href="https://tenor.com/search/dr+house-gifs">Dr House GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+            </div>
+        </div>
+
+        <script>
+            var baseBingoList = [
+                "Paraneoplastic syndrome is mentioned",
+                "Could be cancer",
+                "Patient dies",
+                "House says something sexual to Cuddy",
+                "House steals Wilson's food",
+                "Biopsy",
+                "House eureka moment from unrelated conversation",
+                "Lupus mentioned",
+                "House asks Cuddy for an outrageous test",
+                "House interupts Wilson talking to a patient",
+                "Everybody lies",
+                "Blood from an unusual place",
+                "Allergic to the treatment",
+                "Patient goes blind or deaf",
+                "Patient checked for illicit drugs",
+                "House bashes religion",
+                "Someone other than House solves the case",
+                "House pranks someone",
+                "Patient's life goes against House's code of conduct",
+                "House makes up a medical mystery out of seemingly nowhere",
+                "Cold open fake out patient",
+                "House is rude to someone",
+                "House pries into a coworker's personal life",
+                "There's an idiot in the clinic",
+                "House risks a life for a diagnosis",
+                "Lumbar puncture",
+                "Patient has a seizure",
+                "House psychoanalyses someone",
+                "Patient gets paralysis",
+                "Patient family member arguing with House in Cuddy's office",
+                "House says a slur",
+                "House makes patient's personality trait into a symptom",
+                "House avoids clinic duty",
+                "House commits a crime",
+                "House says a bizzare metaphor",
+                "Something they do for treatment makes the patient worse",
+                "Random melancholic song",
+                "Multiple sclerosis mentioned",
+                "'What's wrong with him?' 'I don't know'",
+                "House commits medical malpractice",
+                "'Where's Dr. House? I want to talk to Dr. House'",
+                "'(Symptom) means we were wrong about (diagnosis)'",
+                "Doctor disagrees a patient's personal life",
+                "House acts insane and paranoid about something minor Wilson does",
+                "Completely absurd symptom",
+                "Total body irradiation",
+                "Patient has a heart attack",
+                "Patient has a stroke",
+                "Ironic disease",
+                "Shitty looking graphic effect",
+                "Chase is a yes man"
+            ];
+
+            function mulberry32(a) {
+                return function() {
+                var t = a += 0x6D2B79F5;
+                t = Math.imul(t ^ t >>> 15, t | 1);
+                t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+                return ((t ^ t >>> 14) >>> 0) / 4294967296;
+                }
+            }
+
+            function shuffle(array) {
+                let currentIndex = array.length;
+                while (currentIndex != 0) {
+                    let randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex--;
+
+                    [array[currentIndex], array[randomIndex]] = [
+                    array[randomIndex], array[currentIndex]];
+                }
+            }
+
+            function initChart() {
+                hasWon = false;
+                const chart = document.getElementById("chartDiv");
+                chart.innerHTML = "";
+
+                shuffle(baseBingoList);
+
+                const size = parseInt(document.getElementById("size").value);
+                document.documentElement.style.cssText = `--grid-length: ${size}`;
+
+                let counter = 0;
+
+                for (let entry=0; entry < size**2; entry++) {
+                    var item = document.createElement("div");
+                    item.setAttribute("data-row", Math.floor(entry/size));
+                    item.setAttribute("data-col", entry%size);
+                    item.setAttribute("onclick", 'select(event)');
+                    item.setAttribute("class", "grid-item");
+                    var itemText = document.createTextNode(baseBingoList[entry]);
+                    item.appendChild(itemText);
+                    chart.appendChild(item);
+                }
+            }
+
+            function select(event) {
+                const element = event.srcElement;
+                element.classList.toggle('selected');
+                checkBingo();
+            }
+
+            var hasWon = false;
+
+            function victory() {
+                var popup = document.getElementById("popup1");
+                popup.classList.toggle("overlayShow");
+                
+                setTimeout(() => {popup.classList.toggle("overlayShow");}, 1500);
+                hasWon = true;
+            }
+
+            function checkBingo() {
+                var bingoGrid = new Array(
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0]
+                )
+                const chart = document.getElementById("chart");
+
+                const selected = document.querySelectorAll(".selected");
+                selected.forEach(element => {
+                    let row = element.getAttribute("data-row");
+                    let col = element.getAttribute("data-col");
+                    bingoGrid[row][col] = 1;
+                });
+                if (hasWon == false) {
+                    for (var i = 0; i < size.value; i++) {
+                        if (bingoGrid[i].reduce((a, b) => a + b, 0) == size.value) {
+                            victory();
+                            return;
+                        }
+                        for (var j = 0; j < size.value; j++) {
+                            if (bingoGrid[0][j] + bingoGrid[1][j] + bingoGrid[2][j] + bingoGrid[3][j] + bingoGrid[4][j] == size.value) {
+                                victory();
+                                return;
+                            } else if (bingoGrid[0][0] + bingoGrid[1][1] + bingoGrid[2][2] + bingoGrid[3][3] + bingoGrid[4][4] == size.value || bingoGrid[0][4] + bingoGrid[1][3] + bingoGrid[2][2] + bingoGrid[3][1] + bingoGrid[4][0] == size.value){
+                                victory();
+                                return;
+                            }
+                        }
+                    }
+                }
+                console.log(bingoGrid);
+            }
+
+            initChart();
+        </script>
+    </body>
+</html>
