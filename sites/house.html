@@ -2,14 +2,35 @@
 <html>
     <head>
         <style>
+            body {
+                background-image: linear-gradient(to right, #b3cef3 , #3c76b6);
+            }
+
+            .settings {
+                margin-left: 20%
+            }
+
+            hr {
+                margin-left: 17%;
+                margin-right: 17%;
+            }
+
             #chartDiv {
                 border:1px solid black;
                 display: grid;
                 grid-template-columns: repeat(var(--grid-length), minmax(120px, 140px));
                 grid-template-rows: repeat(var(--grid-length), minmax(120px, 140px));
                 max-width: fit-content;
+                margin-left: 30%
             }
 
+            .title img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 40%;
+            }
+            
             .grid-item {
                 border:1px solid black;
                 aspect-ratio: 1/1;
@@ -20,7 +41,6 @@
                 text-align: center;
                 word-break: break-word; 
                 background: #f2f2f2;
-                border-radius: 6px;
                 user-select: none; 
             }
 
@@ -91,17 +111,22 @@
         </style>
     </head>
     <body>
-        <h1>House M.D Bingo Chart</h1>
-        <h2>Settings:</h2>
-        <form>
-            <label>Sheet Size:</label>
-            <select id="size">
-                <option value="5">5x5</option>
-                <option value="4">4x4</option>
-                <option value="3">3x3</option>
-            </select>
-            <button type="button" onclick="initChart()">Generate Sheet</button>
-        </form>
+        <div class="title">
+            <img src="house-bingo.png">
+        </div>
+        <div class="settings">
+            <h2>Settings:</h2>
+            <form>
+                <label>Sheet Size:</label>
+                <select id="size">
+                    <option value="5">5x5</option>
+                    <option value="4">4x4</option>
+                    <option value="3">3x3</option>
+                </select>
+                <br><br>
+                <button type="button" onclick="initChart()">Generate Sheet</button>
+            </form>
+        </div>
         <br>
         <hr>
         <div id="chartDiv"></div>
